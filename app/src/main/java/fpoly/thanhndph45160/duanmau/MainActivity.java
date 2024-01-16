@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import fpoly.thanhndph45160.duanmau.DAO.ThuThuDAO;
 import fpoly.thanhndph45160.duanmau.Model.ThuThu;
 import fpoly.thanhndph45160.duanmau.fragment.ChangePassFragment;
+import fpoly.thanhndph45160.duanmau.fragment.SachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.ThanhVienFragment;
 
 
@@ -73,8 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (id == R.id.nav_LoaiSach) {
                     setTitle("Quản Lý Loại Sách");
+
                 } else if (id == R.id.nav_Sach) {
                     setTitle("Quản Lý Sách");
+                    SachFragment sachFragment = new SachFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, sachFragment)
+                            .commit();
                 } else if (id == R.id.nav_ThanhVien) {
                     setTitle("Quản Lý Thành Viên");
                     ThanhVienFragment thanhVienFragment = new ThanhVienFragment();
@@ -83,10 +89,13 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                 } else if (id == R.id.sub_Top) {
                     setTitle("Top 10 Sách Cho Thuê Nhiều Nhất");
+
                 }  else if (id == R.id.sub_DoanhThu) {
                     setTitle("Thống Kê Doanh Thu");
+
                 } else if (id == R.id.sub_AddUser) {
                     setTitle("Thêm Người Dùng");
+
                 } else if (id == R.id.sub_Pass) {
                     setTitle("Đổi Mật Khẩu");
                     ChangePassFragment changePassFragment = new ChangePassFragment();
