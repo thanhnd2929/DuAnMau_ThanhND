@@ -35,7 +35,7 @@ public class LoaiSachDAO {
     }
 
     public int delete(String id) {
-        return db.delete("LoaiSach", "maLoai", new String[]{id});
+        return db.delete("LoaiSach", "maLoai=?", new String[]{id});
     }
 
     @SuppressLint("Range")

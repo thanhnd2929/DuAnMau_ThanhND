@@ -46,15 +46,16 @@ public class ThanhVienDAO {
     public List<ThanhVien> getData(String sql, String...selectionArgs) {
         List<ThanhVien> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql, selectionArgs);
-        while (c.moveToNext()) {
-            ThanhVien obj = new ThanhVien();
-            obj.setMaTV(Integer.parseInt(c.getString(c.getColumnIndex("maTV"))));
-            obj.setHoTen(c.getString(c.getColumnIndex("hoTen")));
-            obj.setNamSinh(c.getString(c.getColumnIndex("namSinh")));
 
-            Log.i("//========", obj.toString());
+        if (c.getCount()>0) {
+            while (c.moveToNext()) {
+                ThanhVien obj = new ThanhVien();
+                obj.setMaTV(Integer.parseInt(c.getString(c.getColumnIndex("maTV"))));
+                obj.setHoTen(c.getString(c.getColumnIndex("hoTen")));
+                obj.setNamSinh(c.getString(c.getColumnIndex("namSinh")));
 
-            list.add(obj);
+                list.add(obj);
+            }
         }
         return list;
     }
@@ -69,8 +70,13 @@ public class ThanhVienDAO {
     public ThanhVien getID(String id) {
         String sql = "SELECT * FROM ThanhVien WHERE maTV=?";
         List<ThanhVien> list = getData(sql, id);
-        return list.get(0);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
+
 
 
 }

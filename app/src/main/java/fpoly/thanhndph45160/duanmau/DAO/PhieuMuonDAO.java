@@ -20,7 +20,7 @@ public class PhieuMuonDAO {
     private MyDbHelper dbHelper;
     private SQLiteDatabase db;
     private Context context;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
     public PhieuMuonDAO(Context context) {
         this.context = context;
@@ -31,7 +31,7 @@ public class PhieuMuonDAO {
     public long insert(PhieuMuon obj) {
         ContentValues values = new ContentValues();
         values.put("maTT", obj.getMaTT());
-        values.put("maTV", obj.getMaTT());
+        values.put("maTV", obj.getMaTV());
         values.put("maSach", obj.getMaSach());
         values.put("tienThue", obj.getTienThue());
         values.put("ngay", sdf.format(obj.getNgay()));
@@ -42,9 +42,8 @@ public class PhieuMuonDAO {
 
     public int update(PhieuMuon obj) {
         ContentValues values = new ContentValues();
-
         values.put("maTT", obj.getMaTT());
-        values.put("maTV", obj.getMaTT());
+        values.put("maTV", obj.getMaTV());
         values.put("maSach", obj.getMaSach());
         values.put("tienThue", obj.getTienThue());
         values.put("ngay", sdf.format(obj.getNgay()));
@@ -59,7 +58,7 @@ public class PhieuMuonDAO {
     }
 
     @SuppressLint("Range")
-    public List<PhieuMuon> getData(String sql, String... selectionArgs) {
+    public List<PhieuMuon> getData(String sql, String...selectionArgs) {
         List<PhieuMuon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql, selectionArgs);
         while (c.moveToNext()) {
@@ -69,12 +68,13 @@ public class PhieuMuonDAO {
             obj.setMaTV(Integer.parseInt(c.getString(c.getColumnIndex("maTV"))));
             obj.setMaSach(Integer.parseInt(c.getString(c.getColumnIndex("maSach"))));
             obj.setTienThue(Integer.parseInt(c.getString(c.getColumnIndex("tienThue"))));
-            obj.setTraSach(Integer.parseInt(c.getString(c.getColumnIndex("traSach"))));
+
             try {
                 obj.setNgay(sdf.parse(c.getString(c.getColumnIndex("ngay"))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            obj.setTraSach(Integer.parseInt(c.getString(c.getColumnIndex("traSach"))));
             list.add(obj);
         }
         return list;

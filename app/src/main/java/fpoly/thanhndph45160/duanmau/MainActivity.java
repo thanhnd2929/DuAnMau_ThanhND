@@ -21,6 +21,8 @@ import com.google.android.material.navigation.NavigationView;
 import fpoly.thanhndph45160.duanmau.DAO.ThuThuDAO;
 import fpoly.thanhndph45160.duanmau.Model.ThuThu;
 import fpoly.thanhndph45160.duanmau.fragment.ChangePassFragment;
+import fpoly.thanhndph45160.duanmau.fragment.LoaiSachFragment;
+import fpoly.thanhndph45160.duanmau.fragment.PhieuMuonFragment;
 import fpoly.thanhndph45160.duanmau.fragment.SachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.ThanhVienFragment;
 
@@ -71,10 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.nav_PhieuMuon) {
                     setTitle("Quản Lý Phiếu Mượn");
-
+                    PhieuMuonFragment phieuMuonFragment = new PhieuMuonFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, phieuMuonFragment)
+                            .commit();
                 } else if (id == R.id.nav_LoaiSach) {
                     setTitle("Quản Lý Loại Sách");
-
+                    LoaiSachFragment loaiSachFragment = new LoaiSachFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, loaiSachFragment)
+                            .commit();
                 } else if (id == R.id.nav_Sach) {
                     setTitle("Quản Lý Sách");
                     SachFragment sachFragment = new SachFragment();
