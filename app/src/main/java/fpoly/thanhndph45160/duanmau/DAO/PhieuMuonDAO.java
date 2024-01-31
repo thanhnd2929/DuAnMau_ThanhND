@@ -110,7 +110,7 @@ public class PhieuMuonDAO {
 
     @SuppressLint("Range")
     public int getDoanhThu(String tuNgay, String denNgay) {
-        String sqlDoanhThu = "SELECT SUM(tienThue) FROM PhieuMuon WHERE ngay BETWEEN ? AND ?";
+        String sqlDoanhThu = "SELECT SUM(tienThue) AS doanhThu FROM PhieuMuon WHERE ngay BETWEEN ? AND ?";
         List<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sqlDoanhThu, new String[]{tuNgay, denNgay});
 

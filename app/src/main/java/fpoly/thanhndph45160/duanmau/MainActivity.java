@@ -21,10 +21,12 @@ import com.google.android.material.navigation.NavigationView;
 import fpoly.thanhndph45160.duanmau.DAO.ThuThuDAO;
 import fpoly.thanhndph45160.duanmau.Model.ThuThu;
 import fpoly.thanhndph45160.duanmau.fragment.ChangePassFragment;
+import fpoly.thanhndph45160.duanmau.fragment.DoanhThuFragment;
 import fpoly.thanhndph45160.duanmau.fragment.LoaiSachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.PhieuMuonFragment;
 import fpoly.thanhndph45160.duanmau.fragment.SachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.ThanhVienFragment;
+import fpoly.thanhndph45160.duanmau.fragment.TopFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
+        setTitle("Thư Viện Phương Nam");
+        FragmentManager manager = getSupportFragmentManager();
+        PhieuMuonFragment phieuMuonFragment = new PhieuMuonFragment();
+        manager.beginTransaction()
+                .replace(R.id.flContent, phieuMuonFragment)
+                .commit();
 
         NavigationView nv = findViewById(R.id.nvView);
         // show user in header
@@ -59,10 +67,9 @@ public class MainActivity extends AppCompatActivity {
         thuThuDAO = new ThuThuDAO(this);
         ThuThu thuThu = thuThuDAO.getID(user);
         String username = thuThu.getHoTen();
-        edUSer.setText("Welcome "+username+"!");
+        edUSer.setText("Welcome "+username+" !");
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
 
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -97,9 +104,16 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                 } else if (id == R.id.sub_Top) {
                     setTitle("Top 10 Sách Cho Thuê Nhiều Nhất");
-
+                    TopFragment topFragment = new TopFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, topFragment)
+                            .commit();
                 }  else if (id == R.id.sub_DoanhThu) {
                     setTitle("Thống Kê Doanh Thu");
+                    DoanhThuFragment doanhThuFragment = new DoanhThuFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, doanhThuFragment)
+                            .commit();
 
                 } else if (id == R.id.sub_AddUser) {
                     setTitle("Thêm Người Dùng");

@@ -66,15 +66,20 @@ public class PhieuMuonAdapter extends ArrayAdapter<PhieuMuon> {
             thanhVienDAO = new ThanhVienDAO(context);
             ThanhVien thanhVien = thanhVienDAO.getID(String.valueOf(item.getMaTV()));
             tvTenTV = (TextView) v.findViewById(R.id.tvTenTV);
-            tvTenTV.setText("Thành viên: "+thanhVien.getHoTen());
-            Log.d("yyyyyy", "thanh vien: "+thanhVien.getHoTen());
+
+            if (thanhVien != null) {
+                tvTenTV.setText("Thành viên: "+thanhVien.getHoTen());
+                Log.d("yyyyyy", "thanh vien: "+thanhVien.getHoTen());
+            } else {
+                Log.d("yyyyyy", "Thành viên là null");
+            }
 
             tvTienThue = v.findViewById(R.id.tvTienThue);
             tvTienThue.setText("Tiền thuê:" + item.getTienThue());
 
             tvNgay = v.findViewById(R.id.tvNgayPM);
             tvNgay.setText("Ngày thuê: "+sdf.format(item.getNgay()));
-            Log.d("zzzzzzz", "Log: "+sdf.format(item.getNgay()));
+            Log.d("zzzzzzz", "Ngay: "+sdf.format(item.getNgay()));
 
 
             tvTraSach = v.findViewById(R.id.tvTraSach);
@@ -89,7 +94,7 @@ public class PhieuMuonAdapter extends ArrayAdapter<PhieuMuon> {
             imgDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    phieuMuonFragment.xoa(String.valueOf(item.getMaPM()));
                 }
             });
 
