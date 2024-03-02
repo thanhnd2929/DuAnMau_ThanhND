@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ThanhVienFragment">
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lvThanhVien"/>
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:iconifiedByDefault="false"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lvThanhVien"/>
+
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

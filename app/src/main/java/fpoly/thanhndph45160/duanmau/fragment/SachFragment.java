@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -52,6 +53,7 @@ public class SachFragment extends Fragment {
     ArrayList<LoaiSach> listLoaiSach;
     LoaiSachDAO loaiSachDAO;
     LoaiSach loaiSach;
+    SearchView searchView;
     int maLoaiSach, position;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +63,7 @@ public class SachFragment extends Fragment {
         sachDAO = new SachDAO(getActivity());
         capNhatLv();
         fab = v.findViewById(R.id.fab);
+        searchView = v.findViewById(R.id.searchView);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +75,34 @@ public class SachFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 item = list.get(position);
                 openDialog(getActivity(), 1);
+                return false;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<Sach> newList = new ArrayList<>();
+                if (!newText.isEmpty()) {
+
+                    for (Sach sach : list) {
+                        int giaThue = sach.getGiaThue();
+                        int giaInput = Integer.parseInt(newText);
+                        if (giaThue > giaInput) {
+                            newList.add(sach);
+                        }
+                    }
+                } else {
+                    newList.addAll(list);
+                }
+
+                sachAdapter = new SachAdapter(getActivity(), SachFragment.this, newList);
+                lvSach.setAdapter(sachAdapter);
                 return false;
             }
         });

@@ -37,9 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         String pass = preferences.getString("PASSWORD", "");
         Boolean rem = preferences.getBoolean("REMEMBER", false);
 
+
+
         edUserName.setText(user);
         edPassword.setText(pass);
         chkRememberPass.setChecked(rem);
+
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

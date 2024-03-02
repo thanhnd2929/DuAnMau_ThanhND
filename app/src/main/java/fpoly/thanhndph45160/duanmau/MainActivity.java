@@ -26,6 +26,7 @@ import fpoly.thanhndph45160.duanmau.fragment.LoaiSachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.PhieuMuonFragment;
 import fpoly.thanhndph45160.duanmau.fragment.SachFragment;
 import fpoly.thanhndph45160.duanmau.fragment.ThanhVienFragment;
+import fpoly.thanhndph45160.duanmau.fragment.ThemNguoiDungFragment;
 import fpoly.thanhndph45160.duanmau.fragment.TopFragment;
 
 
@@ -68,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         ThuThu thuThu = thuThuDAO.getID(user);
         String username = thuThu.getHoTen();
         edUSer.setText("Welcome "+username+" !");
+
+
+        if (user.equalsIgnoreCase("admin")) {
+            nv.getMenu().findItem(R.id.sub_AddUser).setVisible(true);
+        }
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -117,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (id == R.id.sub_AddUser) {
                     setTitle("Thêm Người Dùng");
+                    ThemNguoiDungFragment themNguoiDungFragment = new ThemNguoiDungFragment();
+                    manager.beginTransaction()
+                            .replace(R.id.flContent, themNguoiDungFragment)
+                            .commit();
 
                 } else if (id == R.id.sub_Pass) {
                     setTitle("Đổi Mật Khẩu");

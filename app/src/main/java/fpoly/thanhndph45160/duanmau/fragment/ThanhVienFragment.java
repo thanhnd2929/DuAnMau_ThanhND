@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +40,8 @@ public class ThanhVienFragment extends Fragment {
     Dialog dialog;
     EditText edMaTV, edTenTV, edNamSinh;
     Button btnSaveTV, btnCancelTV;
+    SearchView searchView;
+
 
 
     @Override
@@ -50,6 +53,7 @@ public class ThanhVienFragment extends Fragment {
         thanhVienDAO = new ThanhVienDAO(getActivity());
         capNhatLv();
         fab = v.findViewById(R.id.fab);
+        searchView = v.findViewById(R.id.searchView);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +68,33 @@ public class ThanhVienFragment extends Fragment {
                 openDialog(getContext(), 1);
                 return false;
             }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<ThanhVien> newList = new ArrayList<>();
+                if (!newText.isEmpty()) {
+                    for (ThanhVien thanhVien : list) {
+                        String mtv = String.valueOf(thanhVien.getMaTV());
+                        if (mtv.toLowerCase().contains(newText.toLowerCase())) {
+                            newList.add(thanhVien);
+                        }
+                    }
+                    thanhVienAdapter = new ThanhVienAdapter(getActivity(), ThanhVienFragment.this, newList);
+                    lvThanhVien.setAdapter(thanhVienAdapter);
+                } else {
+                    capNhatLv();
+                }
+
+                return false;
+            }
+
         });
         return v;
     }
